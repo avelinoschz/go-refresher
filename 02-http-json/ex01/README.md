@@ -25,11 +25,11 @@ Notes:
 Command:
 
 ```bash
-go run ./go-refresher/02-http-json/ex01
+go run ./02-http-json/ex01/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/02-http-json/ex01
+go test ./02-http-json/ex01
 ```

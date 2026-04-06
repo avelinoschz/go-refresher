@@ -22,5 +22,5 @@ Rule:
 ## Run tests
 
 ```bash
-go test -race ./go-refresher/04-cache-concurrency/...
+go test -race ./04-cache-concurrency/...
 ```

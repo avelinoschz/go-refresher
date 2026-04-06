@@ -29,11 +29,11 @@ Rules:
 Command:
 
 ```bash
-go run ./go-refresher/02-http-json/ex02
+go run ./02-http-json/ex02/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/02-http-json/ex02
+go test ./02-http-json/ex02
 ```

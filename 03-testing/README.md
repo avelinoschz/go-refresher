@@ -17,5 +17,5 @@ Rule:
 ## Run tests
 
 ```bash
-go test ./go-refresher/03-testing/...
+go test ./03-testing/...
 ```

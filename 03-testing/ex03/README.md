@@ -19,11 +19,11 @@ Minimum cases:
 Command:
 
 ```bash
-go run ./go-refresher/03-testing/ex03
+go run ./03-testing/ex03/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/03-testing/ex03
+go test ./03-testing/ex03
 ```

@@ -18,5 +18,5 @@ Tip:
 ## Run tests
 
 ```bash
-go test ./go-refresher/01-go-core/...
+go test ./01-go-core/...
 ```

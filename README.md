@@ -19,7 +19,7 @@ Usage rules:
 Helpful commands:
 
 ```bash
-go run ./00-warmup/ex01-copy-by-hand
+go run ./00-warmup/ex01-copy-by-hand/main.go
 go test ./...
 
 # Redis exercises (05-redis) require a running Redis instance:

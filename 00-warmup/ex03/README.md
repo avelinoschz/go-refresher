@@ -24,11 +24,11 @@ Rules:
 Command:
 
 ```bash
-go run ./go-refresher/00-warmup/ex03
+go run ./00-warmup/ex03/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/00-warmup/ex03
+go test ./00-warmup/ex03
 ```

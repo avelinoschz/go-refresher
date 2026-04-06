@@ -20,5 +20,5 @@ Rule:
 ## Run tests
 
 ```bash
-go test ./go-refresher/02-http-json/...
+go test ./02-http-json/...
 ```

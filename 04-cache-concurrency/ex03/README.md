@@ -22,11 +22,11 @@ Hint:
 Command:
 
 ```bash
-go run ./go-refresher/04-cache-concurrency/ex03
+go run ./04-cache-concurrency/ex03/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test -race ./go-refresher/04-cache-concurrency/ex03
+go test -race ./04-cache-concurrency/ex03
 ```

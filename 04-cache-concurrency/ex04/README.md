@@ -27,11 +27,11 @@ Restriction:
 Command:
 
 ```bash
-go run ./go-refresher/04-cache-concurrency/ex04
+go run ./04-cache-concurrency/ex04/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test -race ./go-refresher/04-cache-concurrency/ex04
+go test -race ./04-cache-concurrency/ex04
 ```

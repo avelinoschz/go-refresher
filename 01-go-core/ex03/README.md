@@ -29,11 +29,11 @@ Goal:
 Command:
 
 ```bash
-go run ./go-refresher/01-go-core/ex03
+go run ./01-go-core/ex03/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/01-go-core/ex03
+go test ./01-go-core/ex03
 ```

@@ -37,9 +37,9 @@ npm test       # run all tests (no backend needed — fetch is mocked)
 
 ```bash
 # In another terminal, from repo root:
-go run ./02-http-json/ex01/_solution/main.go
+go run ./02-http-json/ex01/_solution/main.go/main.go
 # or the full session solution:
-go run ./06-timed-practice/session01/_solution/main.go
+go run ./06-timed-practice/session01/_solution/main.go/main.go
 ```
 
 Vite proxies `/api/*` → `localhost:8080/*`, so no CORS issues.

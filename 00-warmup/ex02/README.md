@@ -35,11 +35,11 @@ Done criteria:
 Command:
 
 ```bash
-go run ./go-refresher/00-warmup/ex02
+go run ./00-warmup/ex02/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/00-warmup/ex02
+go test ./00-warmup/ex02
 ```

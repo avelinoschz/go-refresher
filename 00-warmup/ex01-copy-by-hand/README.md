@@ -23,11 +23,11 @@ Things to memorize:
 Command:
 
 ```bash
-go run ./go-refresher/00-warmup/ex01-copy-by-hand
+go run ./00-warmup/ex01-copy-by-hand/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/00-warmup/ex01-copy-by-hand
+go test ./00-warmup/ex01-copy-by-hand
 ```

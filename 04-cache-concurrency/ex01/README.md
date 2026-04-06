@@ -29,11 +29,11 @@ Done criteria:
 Command:
 
 ```bash
-go run ./go-refresher/04-cache-concurrency/ex01
+go run ./04-cache-concurrency/ex01/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test -race ./go-refresher/04-cache-concurrency/ex01
+go test -race ./04-cache-concurrency/ex01
 ```

@@ -20,5 +20,5 @@ Block rule:
 ## Run tests
 
 ```bash
-go test ./go-refresher/00-warmup/...
+go test ./00-warmup/...
 ```

@@ -30,11 +30,11 @@ When a serialization error happens:
 Command:
 
 ```bash
-go run ./go-refresher/02-http-json/ex03
+go run ./02-http-json/ex03/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/02-http-json/ex03
+go test ./02-http-json/ex03
 ```

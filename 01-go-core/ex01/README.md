@@ -38,11 +38,11 @@ Done criteria:
 Command:
 
 ```bash
-go run ./go-refresher/01-go-core/ex01
+go run ./01-go-core/ex01/main.go
 ```
 
 ## Run tests
 
 ```bash
-go test ./go-refresher/01-go-core/ex01
+go test ./01-go-core/ex01
 ```
