@@ -1,4 +1,4 @@
-.PHONY: reset restore
+.PHONY: reset restore redis-up redis-down
 
 # Reset an exercise to blank state, backing up the current solution.
 # Usage: make reset EX=00-warmup/ex01-copy-by-hand
@@ -16,3 +16,11 @@ restore:
 	@if [ ! -f "$(EX)/main.go.bak" ]; then echo "No main.go.bak found in $(EX)"; exit 1; fi
 	cp $(EX)/main.go.bak $(EX)/main.go
 	@echo "Restored solution for $(EX)"
+
+# Start Redis in the background (required for 05-redis exercises).
+redis-up:
+	docker compose up -d redis
+
+# Stop Redis and remove the container.
+redis-down:
+	docker compose down

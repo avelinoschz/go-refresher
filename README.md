@@ -21,6 +21,11 @@ Helpful commands:
 ```bash
 go run ./00-warmup/ex01-copy-by-hand
 go test ./...
+
+# Redis exercises (05-redis) require a running Redis instance:
+make redis-up
+go test ./05-redis/...
+make redis-down
 ```
 
 ## Redoing exercises
@@ -44,3 +49,4 @@ Conventions:
   - `service`
   - `store` or `cache`
 - Use the standard library by default.
+- `05-redis` is the only block that uses external dependencies (`go-redis/v9`).
