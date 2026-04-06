@@ -45,7 +45,7 @@ func main() {
 	printer := ConsolePrinter{}
 
 	_ = list.Add("review logs")
-	_ = list.Add("prepare interview")
+	_ = list.Add("write unit tests")
 	_ = list.Complete("review logs")
 
 	printer.PrintSummary(list)

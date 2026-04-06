@@ -26,7 +26,7 @@ func TestTaskListAddAndStats(t *testing.T) {
 	if err := list.Add("review logs"); err != nil {
 		t.Fatalf("add first task: %v", err)
 	}
-	if err := list.Add("prepare interview"); err != nil {
+	if err := list.Add("write unit tests"); err != nil {
 		t.Fatalf("add second task: %v", err)
 	}
 
@@ -41,7 +41,7 @@ func TestTaskListCompleteMarksTaskAndUpdatesStats(t *testing.T) {
 
 	list := &TaskList{}
 	_ = list.Add("review logs")
-	_ = list.Add("prepare interview")
+	_ = list.Add("write unit tests")
 
 	if err := list.Complete("review logs"); err != nil {
 		t.Fatalf("complete task: %v", err)
