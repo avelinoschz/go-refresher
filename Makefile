@@ -1,4 +1,4 @@
-.PHONY: reset restore redis-up redis-down
+.PHONY: reset restore redis-up redis-down react-install
 
 # Reset an exercise to blank state, backing up the current solution.
 # Usage: make reset EX=00-warmup/ex01-copy-by-hand
@@ -24,3 +24,7 @@ redis-up:
 # Stop Redis and remove the container.
 redis-down:
 	docker compose down
+
+# Install dependencies for the React + TypeScript optional block.
+react-install:
+	cd optional/react-ts-vite && npm install

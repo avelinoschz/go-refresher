@@ -1,23 +1,54 @@
-# Optional: React + TypeScript + Vite
+# Optional: React + TypeScript
 
-This block is optional and only comes in if we finish the core track.
+This block is optional — it complements the Go track with frontend exercises.
 
 Goal:
 
-- avoid going in cold if any full-stack work shows up
-- review the minimum useful set of modern React concepts
+- avoid going cold on React if full-stack work shows up
+- practice the minimum useful set of modern React + TypeScript concepts
 
-Suggested crash course:
+## Setup
 
-1. create a project with Vite
-2. review `useState`
-3. fetch a simple endpoint
-4. type simple props and state
-5. render loading, data, and error states
+```bash
+make react-install   # from repo root
+# or:
+cd optional/react-ts-vite && npm install
+```
 
-If we do it, the ideal exercise would be:
+## Run exercises
 
-- a small catalog
-- an input for SKU
-- a fetch to a local Go endpoint
-- JSON rendering with basic UI states
+```bash
+cd optional/react-ts-vite
+npm run dev    # opens localhost:5173
+npm test       # run all tests (no backend needed — fetch is mocked)
+```
+
+## Exercises
+
+| Exercise | Level | Concept |
+|----------|-------|---------|
+| ex01 | Simple | `useState<T>` — Counter with typed state |
+| ex02 | Simple | Typed props, optional props, conditional rendering |
+| ex03 | Intermediate | `useEffect` + fetch to Go backend, loading/error/data states |
+| ex04 | Intermediate | Custom hook — extract fetch logic to `useCatalog(sku)` |
+| ex05 | Intermediate | Controlled input, form handling, list rendering |
+
+## With Go backend (ex03, ex05)
+
+```bash
+# In another terminal, from repo root:
+go run ./02-http-json/ex01/_solution/main.go
+# or the full session solution:
+go run ./06-timed-practice/session01/_solution/main.go
+```
+
+Vite proxies `/api/*` → `localhost:8080/*`, so no CORS issues.
+
+## Reset an exercise
+
+```bash
+# Example for ex01:
+cp src/ex01/_original/Counter.tsx src/ex01/Counter.tsx
+```
+
+Each exercise has `_original/` (blank skeleton) and `_solution/` (reference).
