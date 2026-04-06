@@ -12,10 +12,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["vitest/globals"]
   },
   "include": ["src"],
+  "exclude": ["src/**/_original", "src/**/_solution"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
