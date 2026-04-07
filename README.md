@@ -11,8 +11,8 @@ Goals:
 Usage rules:
 
 1. Move in order. Each block assumes the previous one.
-2. `00-warmup/ex01-copy-by-hand` is the only fully solved exercise.
-3. Everything after that uses starter code or small skeletons.
+2. All exercises start from stub code with TODOs.
+3. Each exercise has a `_solution/` directory for reference after you attempt it.
 4. Try to solve each exercise on your own before bringing it back for review.
 5. If you get stuck, read the exercise README before consulting external documentation.
 
