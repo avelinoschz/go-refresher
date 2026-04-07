@@ -20,14 +20,12 @@ type NotFoundError struct {
 }
 
 func (e *NotFoundError) Error() string {
-	_ = fmt.Sprintf
 	// TODO: implement — "product not found: <sku>"
-	return ""
+	return fmt.Sprintf("product not found: %s", e.SKU)
 }
 
 func (e *NotFoundError) Unwrap() error {
-	// TODO: implement
-	return nil
+	return ErrNotFound
 }
 
 // ValidationError is returned when a product fails field validation.
@@ -39,12 +37,11 @@ type ValidationError struct {
 
 func (e *ValidationError) Error() string {
 	// TODO: implement — "validation: <field>: <reason>"
-	return ""
+	return fmt.Sprintf("validation: %s: %s", e.Field, e.Reason)
 }
 
 func (e *ValidationError) Unwrap() error {
-	// TODO: implement
-	return nil
+	return ErrInvalidInput
 }
 
 // Product is a catalog item.
@@ -57,7 +54,7 @@ type Product struct {
 
 func (p Product) String() string {
 	// TODO: implement — "<name> (sku=<sku>, price=<price>)"
-	return ""
+	return fmt.Sprintf("%s (sku=%s, price=%d)", p.Name, p.SKU, p.Price)
 }
 
 // CatalogStore is an in-memory product store.
@@ -73,24 +70,54 @@ func NewCatalogStore() *CatalogStore {
 // Returns *ValidationError if SKU or Name is empty.
 // Returns ErrConflict if a product with the same SKU already exists.
 func (s *CatalogStore) Save(p Product) error {
-	// TODO: implement
+	if p.Name == "" {
+		return &ValidationError{Field: "name", Reason: "is required"}
+	}
+
+	if p.SKU == "" {
+		return &ValidationError{Field: "sku", Reason: "is required"}
+	}
+
+	if _, exists := s.products[p.SKU]; exists {
+		return ErrConflict
+	}
+
+	s.products[p.SKU] = p
+
 	return nil
 }
 
 // GetBySKU looks up a product by SKU.
 // Returns *NotFoundError if the SKU does not exist.
 func (s *CatalogStore) GetBySKU(sku string) (Product, error) {
-	// TODO: implement
-	return Product{}, nil
+	p, ok := s.products[sku]
+	if !ok {
+		return Product{}, &NotFoundError{SKU: sku}
+	}
+	return p, nil
 }
 
 // HTTPStatusFor maps a catalog error to the appropriate HTTP status code.
 // Uses errors.Is to discriminate — never inspect error strings.
 // Returns 200 for nil.
 func HTTPStatusFor(err error) int {
-	_ = http.StatusOK
-	// TODO: implement
-	return 0
+	if err == nil {
+		return http.StatusOK
+	}
+
+	if errors.Is(err, ErrNotFound) {
+		return http.StatusNotFound
+	}
+
+	if errors.Is(err, ErrConflict) {
+		return http.StatusConflict
+	}
+
+	if errors.Is(err, ErrInvalidInput) {
+		return http.StatusBadRequest
+	}
+
+	return http.StatusInternalServerError
 }
 
 func main() {}

@@ -16,7 +16,7 @@ Implement the types and functions marked with `// TODO: implement` in `main.go`.
 ## Expected behavior
 
 | Function/Method | Behavior |
-|---|---|
+| - | - |
 | `NotFoundError.Error()` | `"product not found: <sku>"` |
 | `NotFoundError.Unwrap()` | returns `ErrNotFound` |
 | `ValidationError.Error()` | `"validation: <field>: <reason>"` |
