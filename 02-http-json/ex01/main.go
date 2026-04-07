@@ -31,9 +31,27 @@ func (s CatalogService) GetBySKU(sku string) (Product, bool) {
 
 func catalogHandler(service CatalogService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		_ = service
-		_ = json.NewEncoder
-		// TODO: implement
+		params := r.URL.Query()
+
+		sku := params.Get("sku")
+		if sku == "" {
+			http.Error(w, "sku is required", http.StatusBadRequest)
+			return
+		}
+
+		prod, found := service.GetBySKU(sku)
+		if !found {
+			http.Error(w, "sku not found", http.StatusNotFound)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		err := json.NewEncoder(w).Encode(prod)
+		if err != nil {
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
 	}
 }
 
@@ -44,3 +62,28 @@ func main() {
 
 	_ = http.ListenAndServe(":8080", nil)
 }
+
+// // Just practicing. This is a helper function to write a error response
+// func writeJSONError(w http.ResponseWriter, status int, msg string) {
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.WriteHeader(status)
+
+// 	// using literal strings
+// 	// fmt.Fprintf(w, `{"error":%q}`, msg)
+
+// 	// or jsn marhasling
+// 	resp := ErrorReponse{
+// 		Error: msg,
+// 	}
+// 	payload, err := json.Marshal(resp)
+// 	if err != nil {
+// 		http.Error(w, "internal server error", http.StatusInternalServerError)
+// 		return
+// 	}
+
+// 	fmt.Fprintf(w, "%s", payload)
+// }
+
+// type ErrorReponse struct {
+// 	Error string `json:"error"`
+// }
