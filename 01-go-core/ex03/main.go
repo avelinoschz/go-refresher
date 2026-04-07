@@ -26,13 +26,13 @@ func NewInMemoryAppStore() *InMemoryAppStore {
 }
 
 func (s *InMemoryAppStore) Save(app App) error {
-	// TODO: implement
-	return errors.New("not implemented")
+	s.apps[app.Name] = app
+	return nil
 }
 
 func (s *InMemoryAppStore) GetByName(name string) (App, bool) {
-	// TODO: implement
-	return App{}, false
+	app, found := s.apps[name]
+	return app, found
 }
 
 type AppService struct {
@@ -44,8 +44,19 @@ func NewAppService(store AppStore) AppService {
 }
 
 func (s AppService) Register(app App) error {
-	// TODO: implement
-	return errors.New("not implemented")
+	if app.Name == "" {
+		return errors.New("app name is required")
+	}
+
+	if app.OwnerTeam == "" {
+		return errors.New("app owner team is required")
+	}
+
+	if _, found := s.store.GetByName(app.Name); found {
+		return fmt.Errorf("app %q already exists", app.Name)
+	}
+
+	return s.store.Save(app)
 }
 
 func main() {
