@@ -9,8 +9,26 @@ type Employee struct {
 }
 
 func BuildDepartmentSummary(employees []Employee) (map[string]int, int) {
-	// TODO: implement
-	return map[string]int{}, 0
+	if len(employees) == 0 {
+		return map[string]int{}, 0
+	}
+
+	empPerDept := map[string]int{}
+	total := 0
+
+	for _, e := range employees {
+		if e.Department == "" {
+			continue
+		}
+
+		if e.Active {
+			total++
+		}
+
+		empPerDept[e.Department]++
+	}
+
+	return empPerDept, total
 }
 
 func main() {

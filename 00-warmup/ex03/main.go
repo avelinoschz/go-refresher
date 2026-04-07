@@ -19,18 +19,36 @@ type TaskList struct {
 }
 
 func (t *TaskList) Add(title string) error {
-	// TODO: implement
-	return errors.New("not implemented")
+	if title == "" {
+		return errors.New("empty task")
+	}
+
+	t.tasks = append(t.tasks, Task{Title: title})
+	return nil
 }
 
 func (t *TaskList) Complete(title string) error {
-	// TODO: implement
-	return errors.New("not implemented")
+	for i := range t.tasks {
+		task := &t.tasks[i]
+		if task.Title == title {
+			task.Completed = true
+			return nil
+		}
+	}
+
+	return errors.New("task not found")
 }
 
 func (t *TaskList) Stats() (int, int) {
-	// TODO: implement
-	return 0, 0
+	total := len(t.tasks)
+	completed := 0
+
+	for _, task := range t.tasks {
+		if task.Completed {
+			completed += 1
+		}
+	}
+	return total, completed
 }
 
 type ConsolePrinter struct{}
