@@ -42,59 +42,29 @@ func (s *CatalogStore) UpdatePrice(sku string, price int) (Product, bool) {
 }
 
 func decodeStrictJSON(w http.ResponseWriter, r *http.Request, dst any) error {
-	r.Body = http.MaxBytesReader(w, r.Body, 64)
-
-	decoder := json.NewDecoder(r.Body)
-	decoder.DisallowUnknownFields()
-
-	if err := decoder.Decode(dst); err != nil {
-		return err
-	}
-
-	if err := decoder.Decode(&struct{}{}); err != io.EOF {
-		return errors.New("body must contain a single JSON object")
-	}
-
+	_ = json.NewDecoder
+	_ = http.MaxBytesReader
+	_ = io.EOF
+	_ = errors.New
+	// TODO: implement
+	// Requirements:
+	// - limit the request body size
+	// - use json.Decoder
+	// - reject unknown fields
+	// - reject trailing JSON after the first object
 	return nil
 }
 
 func updatePriceHandler(store *CatalogStore) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		sku := r.PathValue("sku")
-		if sku == "" {
-			http.Error(w, "sku is required", http.StatusBadRequest)
-			return
-		}
-
-		var input PriceUpdateRequest
-		if err := decodeStrictJSON(w, r, &input); err != nil {
-			var maxErr *http.MaxBytesError
-			if errors.As(err, &maxErr) {
-				http.Error(w, "request body too large", http.StatusRequestEntityTooLarge)
-				return
-			}
-
-			http.Error(w, "invalid json body", http.StatusBadRequest)
-			return
-		}
-
-		if input.Price <= 0 {
-			http.Error(w, "price must be greater than 0", http.StatusBadRequest)
-			return
-		}
-
-		product, ok := store.UpdatePrice(sku, input.Price)
-		if !ok {
-			http.Error(w, "sku not found", http.StatusNotFound)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		if err := json.NewEncoder(w).Encode(product); err != nil {
-			http.Error(w, "internal server error", http.StatusInternalServerError)
-			return
-		}
+		_ = r.PathValue
+		_ = store
+		// TODO: implement
+		// Requirements:
+		// - read sku from the route
+		// - decode the JSON body strictly
+		// - return 400 / 404 / 413 when appropriate
+		// - return the updated product as JSON on success
 	}
 }
 
