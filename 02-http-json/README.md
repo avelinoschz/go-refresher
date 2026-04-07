@@ -7,7 +7,9 @@ Priorities:
 - `net/http`
 - `encoding/json`
 - query params
+- path params with the stdlib router
 - body decoding
+- strict JSON decoding (`DisallowUnknownFields`, single-object bodies, size limits)
 - simple validation
 - consistent JSON responses
 - introduce `context.Context` without overcomplicating things
