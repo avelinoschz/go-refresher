@@ -2,38 +2,38 @@
 
 ## Goal
 
-Profundizar en `encoding/json` más allá de los tags básicos: marshalers custom, `omitempty`, el tag `-`, y streaming con `json.Decoder`/`json.Encoder`.
+Go deeper into `encoding/json` beyond basic tags: custom marshalers, `omitempty`, the `-` tag, and streaming with `json.Decoder`/`json.Encoder`.
 
-**Packages principales:** `encoding/json`, `fmt`
+**Main packages:** `encoding/json`, `fmt`
 
 ## Prompt
 
-El catalog API expone productos a dos audiencias: admins (todos los campos, incluyendo costo) y el storefront público (precio y disponibilidad; el costo nunca debe filtrarse).
+The catalog API exposes products to two audiences: admins (all fields, including cost) and the public storefront (price and availability; cost must never be leaked).
 
-Adicionalmente, el precio se almacena en centavos internamente (`CentPrice`) pero debe serializarse como decimal string en JSON (`"12.99"`).
+Additionally, prices are stored internally in cents (`CentPrice`) but must be serialized as a decimal string in JSON (`"12.99"`).
 
-Implementa los tipos y funciones marcados con `// TODO: implement` en `main.go`.
+Implement the types and functions marked with `// TODO: implement` in `main.go`.
 
 ## Expected behavior
 
-| Tipo/Función | Comportamiento |
+| Type/Function | Behavior |
 |---|---|
-| `CentPrice.MarshalJSON` | `CentPrice(1299)` → `"12.99"` (string JSON con comillas) |
+| `CentPrice.MarshalJSON` | `CentPrice(1299)` → `"12.99"` (JSON string with quotes) |
 | `CentPrice.UnmarshalJSON` | `"12.99"` → `CentPrice(1299)` |
-| `InternalProduct` con `CostCents=0` | `cost_cents` omitido del JSON |
-| `InternalProduct` con `CostCents>0` | `cost_cents` incluido en el JSON |
-| `PublicProduct` | `cost_cents` nunca aparece (tag `json:"-"`) |
-| `ToPublic` | convierte correctamente; `InStock` = `Available` |
-| `DecodeProduct` | usa `json.Decoder`, no `json.Unmarshal(io.ReadAll(...))` |
-| `EncodePublicProduct` | usa `json.Encoder`, no `json.Marshal` + `w.Write` |
+| `InternalProduct` with `CostCents=0` | `cost_cents` omitted from JSON |
+| `InternalProduct` with `CostCents>0` | `cost_cents` included in JSON |
+| `PublicProduct` | `cost_cents` never appears (tag `json:"-"`) |
+| `ToPublic` | converts correctly; `InStock` = `Available` |
+| `DecodeProduct` | uses `json.Decoder`, not `json.Unmarshal(io.ReadAll(...))` |
+| `EncodePublicProduct` | uses `json.Encoder`, not `json.Marshal` + `w.Write` |
 
 ## Notes
 
-- `omitempty` omite el campo cuando su valor es el zero value del tipo (`0`, `false`, `""`).
-- El tag `json:"-"` excluye el campo por completo — no aparece ni en marshal ni en unmarshal.
-- Para `MarshalJSON`, debes producir bytes JSON válidos (el string con sus comillas incluidas).
-- `json.Encoder` agrega `\n` al final — los tests lo tienen en cuenta.
-- Usa `fmt.Sprintf("%.2f", float64(p)/100)` para formatear centavos como decimal.
+- `omitempty` omits the field when its value is the zero value of the type (`0`, `false`, `""`).
+- The `json:"-"` tag excludes the field entirely — it does not appear in marshal or unmarshal.
+- For `MarshalJSON`, you must produce valid JSON bytes (the string including its quotes).
+- `json.Encoder` appends `\n` at the end — tests account for this.
+- Use `fmt.Sprintf("%.2f", float64(p)/100)` to format cents as a decimal.
 
 ## Run tests
 

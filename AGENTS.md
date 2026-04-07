@@ -9,3 +9,4 @@ Keep the following in mind:
 - Notes and exercises may be slightly more production-oriented than a typical snippet repo.
 - `_original/` directories are read-only starter state — never modify them. They exist so the user can reset an exercise with `make reset`.
 - `_solution/` directories contain reference solutions — do not proactively show or reference their contents. Only consult them if the user is explicitly stuck and asks for a hint or review after attempting the exercise.
+- All READMEs and code comments must be written in English.

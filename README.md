@@ -42,8 +42,6 @@ make restore EX=00-warmup/ex01-copy-by-hand
 
 Conventions:
 
-- Write documentation and comments in English.
-- Keep code identifiers in English.
 - In backend exercises, aim for a consistent shape:
   - `handler`
   - `service`

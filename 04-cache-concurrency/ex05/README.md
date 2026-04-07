@@ -1,38 +1,38 @@
-# 04-cache-concurrency/ex05 — HTTP client con context + error wrapping
+# 04-cache-concurrency/ex05 — HTTP client with context + error wrapping
 
 ## Goal
 
-Practicar el lado cliente de `net/http`: hacer requests con `context`, manejar timeouts, leer el body de forma segura, y construir una cadena de errores rica con `errors` y `fmt`.
+Practice the client side of `net/http`: making requests with `context`, handling timeouts, reading the body safely, and building a rich error chain with `errors` and `fmt`.
 
-**Packages principales:** `net/http`, `context`, `errors`
+**Main packages:** `net/http`, `context`, `errors`
 
 ## Prompt
 
-El catalog service necesita obtener precios desde un upstream externo. Implementa un `PricingClient` que respete el contexto del caller, capture errores de upstream con suficiente contexto para hacer debugging, y exponga tipos de error que los callers puedan inspeccionar con `errors.Is` / `errors.As`.
+The catalog service needs to fetch prices from an external upstream. Implement a `PricingClient` that respects the caller's context, captures upstream errors with enough context for debugging, and exposes error types that callers can inspect with `errors.Is` / `errors.As`.
 
-Los tests usan `httptest.NewServer` para simular el upstream — no se hace ninguna llamada de red real.
+Tests use `httptest.NewServer` to simulate the upstream — no real network calls are made.
 
-Implementa los tipos y funciones marcados con `// TODO: implement` en `main.go`.
+Implement the types and functions marked with `// TODO: implement` in `main.go`.
 
 ## Expected behavior
 
-| Función/Método | Comportamiento |
+| Function/Method | Behavior |
 |---|---|
 | `UpstreamError.Error()` | `"upstream error: status <code>: <body>"` |
-| `UpstreamError.Unwrap()` | retorna `ErrUpstream` |
-| `FetchPrice` — 2xx | decodifica el JSON y retorna `PriceResponse` |
-| `FetchPrice` — non-2xx | retorna `*UpstreamError` con el status code y primeros 256 bytes del body |
-| `FetchPrice` — ctx cancelado | retorna error que wrappea `context.Canceled` |
-| `FetchPrice` — timeout del client | retorna error que wrappea `context.DeadlineExceeded` |
+| `UpstreamError.Unwrap()` | returns `ErrUpstream` |
+| `FetchPrice` — 2xx | decodes the JSON and returns `PriceResponse` |
+| `FetchPrice` — non-2xx | returns `*UpstreamError` with the status code and first 256 bytes of the body |
+| `FetchPrice` — ctx canceled | returns error that wraps `context.Canceled` |
+| `FetchPrice` — client timeout | returns error that wraps `context.DeadlineExceeded` |
 
 ## Notes
 
-- Usa `http.NewRequestWithContext(ctx, ...)` — nunca `http.NewRequest`.
-- Siempre cierra `resp.Body` con `defer resp.Body.Close()`.
-- Usa `io.LimitReader(resp.Body, 1<<20)` para acotar el body antes de leerlo.
-- El timeout del `http.Client` y el deadline del context son independientes — el que dispara primero gana.
-- Cuando el contexto está cancelado antes del request, `http.Client.Do` retorna un error que ya wrappea `context.Canceled` — no necesitas wrapearlo manualmente.
-- Para errores de decode usa: `fmt.Errorf("decode pricing response: %w", err)`.
+- Use `http.NewRequestWithContext(ctx, ...)` — never `http.NewRequest`.
+- Always close `resp.Body` with `defer resp.Body.Close()`.
+- Use `io.LimitReader(resp.Body, 1<<20)` to cap the body before reading it.
+- The `http.Client` timeout and the context deadline are independent — whichever fires first wins.
+- When the context is canceled before the request, `http.Client.Do` returns an error that already wraps `context.Canceled` — you do not need to wrap it manually.
+- For decode errors use: `fmt.Errorf("decode pricing response: %w", err)`.
 
 ## Run tests
 

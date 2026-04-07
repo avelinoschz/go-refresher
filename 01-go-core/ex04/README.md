@@ -2,36 +2,36 @@
 
 ## Goal
 
-Practicar los patrones de error de Go más allá de `errors.New` y `fmt.Errorf`:
-custom error types, la cadena de `Unwrap`, `errors.Is`, `errors.As`, y la interface `fmt.Stringer`.
+Practice Go error patterns beyond `errors.New` and `fmt.Errorf`:
+custom error types, the `Unwrap` chain, `errors.Is`, `errors.As`, and the `fmt.Stringer` interface.
 
-**Packages principales:** `errors`, `fmt`
+**Main packages:** `errors`, `fmt`
 
 ## Prompt
 
-El catalog service necesita comunicar fallos con precisión para que los handlers HTTP puedan mapearlos al status code correcto sin inspeccionar strings de error.
+The catalog service needs to communicate failures precisely so HTTP handlers can map them to the correct status code without inspecting error strings.
 
-Implementa los tipos y funciones marcados con `// TODO: implement` en `main.go`.
+Implement the types and functions marked with `// TODO: implement` in `main.go`.
 
 ## Expected behavior
 
-| Función/Método | Comportamiento |
+| Function/Method | Behavior |
 |---|---|
 | `NotFoundError.Error()` | `"product not found: <sku>"` |
-| `NotFoundError.Unwrap()` | retorna `ErrNotFound` |
+| `NotFoundError.Unwrap()` | returns `ErrNotFound` |
 | `ValidationError.Error()` | `"validation: <field>: <reason>"` |
-| `ValidationError.Unwrap()` | retorna `ErrInvalidInput` |
-| `Product.String()` | contiene name, sku y price |
-| `CatalogStore.Save` | `*ValidationError` si SKU o Name vacíos; `ErrConflict` si SKU duplicado |
-| `CatalogStore.GetBySKU` | `*NotFoundError` si no existe |
-| `HTTPStatusFor` | 200/400/404/409 usando `errors.Is`; nunca inspeccionando strings |
+| `ValidationError.Unwrap()` | returns `ErrInvalidInput` |
+| `Product.String()` | contains name, sku and price |
+| `CatalogStore.Save` | `*ValidationError` if SKU or Name are empty; `ErrConflict` if SKU is duplicate |
+| `CatalogStore.GetBySKU` | `*NotFoundError` if it does not exist |
+| `HTTPStatusFor` | 200/400/404/409 using `errors.Is`; never inspecting strings |
 
 ## Notes
 
-- Usa `errors.Is` en `HTTPStatusFor` — no type switches, no string comparisons.
-- El `Unwrap()` es lo que permite que `errors.Is` y `errors.As` traversar la cadena.
-- `fmt.Stringer` se activa cuando usas `%v` o `%s` en `fmt.Sprintf`.
-- `errors.As` extrae el tipo concreto incluso cuando el error está wrapped con `fmt.Errorf("%w", ...)`.
+- Use `errors.Is` in `HTTPStatusFor` — no type switches, no string comparisons.
+- `Unwrap()` is what allows `errors.Is` and `errors.As` to traverse the chain.
+- `fmt.Stringer` is triggered when you use `%v` or `%s` in `fmt.Sprintf`.
+- `errors.As` extracts the concrete type even when the error is wrapped with `fmt.Errorf("%w", ...)`.
 
 ## Run tests
 
