@@ -5,24 +5,6 @@ import (
 	"fmt"
 )
 
-// func allowedEnvs() []string {
-// 	return []string{
-// 		"dev",
-// 		"stage",
-// 		"prod",
-// 	}
-// }
-
-// func isValidEnv(env string) bool {
-// 	for _, e := range allowedEnvs() {
-// 		if env == e {
-// 			return true
-// 		}
-// 	}
-
-// 	return false
-// }
-
 type DeploymentPlan struct {
 	Environment string
 	ServiceName string
@@ -32,29 +14,8 @@ type DeploymentPlan struct {
 type DeploymentPlanner struct{}
 
 func (DeploymentPlanner) Build(environment, serviceName string, replicas int) (DeploymentPlan, error) {
-	switch environment {
-	case "dev", "stage", "prod":
-	default:
-		return DeploymentPlan{}, errors.New("invalid environment")
-	}
-
-	if serviceName == "" {
-		return DeploymentPlan{}, errors.New("service name is required")
-	}
-
-	if replicas <= 0 {
-		return DeploymentPlan{}, errors.New("replicas must be positive")
-	}
-
-	if environment == "prod" && replicas < 2 {
-		return DeploymentPlan{}, errors.New("prod replicas must be higher than 1")
-	}
-
-	return DeploymentPlan{
-		Environment: environment,
-		ServiceName: serviceName,
-		Replicas:    replicas,
-	}, nil
+	// TODO: implement
+	return DeploymentPlan{}, errors.New("not implemented")
 }
 
 func main() {
