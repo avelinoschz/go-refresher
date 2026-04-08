@@ -15,7 +15,7 @@ Implement the types and functions marked with `// TODO: implement` in `main.go`.
 ## Expected behavior
 
 | Function | Behavior |
-|---|---|
+| - | - |
 | `RequestIDFromContext` | extracts the ID from the context; `""` if not present |
 | `WithRequestID` | generates a unique ID, stores it in ctx, writes `X-Request-ID` header |
 | `WithLogger` | writes `"METHOD PATH id=<id> status=<code>\n"` to `out` per request |
