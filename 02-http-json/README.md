@@ -15,6 +15,7 @@ Priorities:
 - simple validation
 - consistent JSON responses
 - introduce `context.Context` without overcomplicating things
+- HTTP clients: `http.Get`, `http.Post`, `http.Client`, `http.NewRequestWithContext`
 
 Rule:
 
