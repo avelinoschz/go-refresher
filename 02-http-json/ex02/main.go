@@ -35,6 +35,8 @@ func (s *CatalogStore) Exists(sku string) bool {
 
 func createCatalogHandler(store *CatalogStore) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		defer r.Body.Close()
+
 		if r.Method != http.MethodPost {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 			return
@@ -54,6 +56,7 @@ func createCatalogHandler(store *CatalogStore) http.HandlerFunc {
 
 		if store.Exists(prod.SKU) {
 			http.Error(w, "product already exists", http.StatusConflict)
+			return
 		}
 
 		if err := store.Save(prod); err != nil {
